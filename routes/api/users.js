@@ -4,6 +4,7 @@ const gravatar = require('gravatar');//なんかurl作成してくれてるぞ(�
 const bcrypt = require('bcryptjs');//hash化
 const jwt = require('jsonwebtoken');//jwtとはjsn使用した認可システムな
 const keys = require('../../config/keys');
+const passport = require('passport');
 
 //Load User model
 const User = require('../../models/User')
@@ -90,5 +91,17 @@ router.post('/login', (req, res) => {
         })
     });
 })
+
+//@route GET api/usrss/current
+//@desc Return current user
+//@access Private
+//(このpassport.authenticateはlaravelのcontrollerでuserかどうか調べるauth機能のノリやな)
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json({
+    id: req.user.id,
+    name: req.user.name,
+    email: req.user.email
+  });
+});
 
 module.exports = router;
