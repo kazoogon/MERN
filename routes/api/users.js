@@ -6,6 +6,9 @@ const jwt = require('jsonwebtoken');//jwtとはjsn使用した認可システム
 const keys = require('../../config/keys');
 const passport = require('passport');
 
+//load input validation
+const validateRegisterInput = require('../../validation/register');
+
 //Load User model
 const User = require('../../models/User')
 
@@ -18,10 +21,18 @@ router.get('/test', (req, res) => res.json({msg: "users works"}));
 //@desc Register User
 //@access Public
 router.post('/register', (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  //check validation
+  if(!isValid){
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email: req.body.email })
     .then(user => {
       if(user){
-        return res.status(400).json({email: 'Email already exits' });
+        errors.email = 'Email already exists';
+        return res.status(400).json(errors);
       }else{
         //postmanで確認すると,こんなurlできてました
         //http://localhost:5000//www.gravatar.com/avatar/70bfd54b6fdd874213174e110bf1f7db?s=200&r=pg&d=mm
