@@ -14,14 +14,14 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  avator: {
+  avatar: {
     type: String,
     required: true
   },
-  name: {
-    date: Date,
+  date: {
+    type: Date,
     default: Date.now
-  },
+  }
 });
 
-module.exports = User = mongoose.model('users', Userschema);
+module.exports = User = mongoose.model('users', UserSchema);
