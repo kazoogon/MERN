@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();//expressさんがrouter提供してくれとんか。あざっす
-const gravatar = require('gravatar');
-const bcrypt = require('bcryptjs');
+const gravatar = require('gravatar');//なんかurl作成してくれてるぞ(後々詳しく)
+const bcrypt = require('bcryptjs');//hash化
+const jwt = require('jsonwebtoken');//jwtとはjsn使用した認可システムな
+const keys = require('../../config/keys');
 
 //Load User model
 const User = require('../../models/User')
@@ -68,7 +70,20 @@ router.post('/login', (req, res) => {
       bcrypt.compare(password, user.password)
         .then(isMatch => {
           if(isMatch){
-            res.json({msg: "Success"});
+            //User matched
+            const payload = {
+                              id: user.id,
+                              name: user.name,
+                              avatar: user.avatar
+                            }
+
+            //sign jsonwebtoken
+            jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+              res.json({
+                success: true,
+                token: 'Bearer ' + token //ここ実際に作成されるtokenな
+              })
+            });
           }else{
             return res.status(400).json({password: 'password incorrect'})
           }
