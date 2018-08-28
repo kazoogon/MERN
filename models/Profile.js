@@ -22,10 +22,10 @@ const ProfileSchema = new Schema({
   },
   status: {
     type: String,
-    requierd: true
+    required: true
   },
   skills: {
-    type: [String]//array型(ex. Java,PHP,Node,)
+    type: [String],//array型(ex. Java,PHP,Node,)
     required: true
   },
   bio: {
@@ -38,7 +38,7 @@ const ProfileSchema = new Schema({
     {
       title: {
         type: String,
-        require: true
+        required: true
       },
       company: {
         type: String,
@@ -67,7 +67,7 @@ const ProfileSchema = new Schema({
     {
       school: {
         type: String,
-        require: true
+        required: true
       },
       degree: {
         type: String,
