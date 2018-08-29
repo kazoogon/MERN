@@ -13,7 +13,6 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload), //tokenがあるかどうかの確認
         user: action.payload
-
       }
     default:
       return state;

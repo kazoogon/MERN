@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+//headerにtokenの値をもたせましょー　の関数
 const setAuthToken = token => {
   if(token){
     //apply to every request

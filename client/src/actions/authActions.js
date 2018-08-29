@@ -19,9 +19,9 @@ export const registerUser = (userData, history) => dispatch => {
 export const loginUser = userData => dispatch =>{
   axios.post('/api/users/login', userData)
     .then(res =>{
-      // save to loaclstorage
+      //localstorageに保存
       const { token } = res.data;
-      // set token to local loaclstorage
+      // set token to loaclstorageってかただのresponseのデータな
       localStorage.setItem('jwtToken', token);
       //set token to auth header
       setAuthToken(token);
@@ -43,6 +43,6 @@ export const loginUser = userData => dispatch =>{
 export const setCurrentUser = (decode) => {
   return {
     type: SET_CURRENT_USER,
-    payload: decoded
+    payload: decode
   }
 }
