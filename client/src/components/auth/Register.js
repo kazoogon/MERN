@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import classnames from 'classnames'; //angularではdefaultであるらいい
 import { connect } from 'react-redux'; //reactのcomponentがreduxのstoreの値取得できるようにしてくれる
 import { registerUser } from '../../actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
@@ -17,7 +16,6 @@ class Register extends Component {
       password2: '',
       errors: {}
     };
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
