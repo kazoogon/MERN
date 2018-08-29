@@ -19,16 +19,15 @@ export const registerUser = (userData, history) => dispatch => {
 export const loginUser = userData => dispatch =>{
   axios.post('/api/users/login', userData)
     .then(res =>{
-      //localstorageに保存
       const { token } = res.data;
       // set token to loaclstorageってかただのresponseのデータな
       localStorage.setItem('jwtToken', token);
-      //set token to auth header
+      //headerのauthorizateにtokenの値もたせましょ
       setAuthToken(token);
 
       //decode token to get user user data
       const decoded = jwt_decode(token);
-      //set current user
+      //storeにこのデータ保存しましょう
       dispatch(setCurrentUser(decoded));
     })
     .catch(err =>
@@ -45,4 +44,14 @@ export const setCurrentUser = (decode) => {
     type: SET_CURRENT_USER,
     payload: decode
   }
+}
+
+// logout
+export const logoutUser = () => dispatch => {
+  //localStorage・headerのtoken情報の削除
+  localStorage.removeItem('jwtToken');
+  setAuthToken(false);
+
+  //storeのuserを空に + isAuthenticatedをfalseに
+  dispatch(setCurrentUser({}))
 }

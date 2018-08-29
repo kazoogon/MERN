@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store'
 import { setCurrentUser } from './actions/authActions';
+import { logoutUser } from './actions/authActions';
+
 
 //tokenをloacl storageに入れるときに使用
 import jwt_dcode from 'jwt-decode';
@@ -15,7 +17,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import './App.css';
 
-//check for tokenをloacl
+//画面遷移してもUser loginしているかどうか毎回調べる
 if(localStorage.jwtToken) {
   //localStorageにtokenあったら, headerにtoken情報持たせる
   setAuthToken(localStorage.jwtToken);
@@ -23,6 +25,15 @@ if(localStorage.jwtToken) {
   const decoded = jwt_dcode(localStorage.jwtToken);
   //set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
+
+  //check expire token
+  const currentTime = Date.now() / 1000;
+  if(decoded.exp < currentTime) {
+    store.dispatch(logoutUser());
+    //todo: clear current profile
+
+    window.location.href = '/login';
+  }
 }
 
 class App extends Component {

@@ -21,6 +21,11 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() { //loginされている時に、urlで直接たたかれたら dashboardにいくように
+    if(this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
 
   componentWillReceiveProps(nextProps) { //get errors from state of STORE(Propが更新される時に呼ばれます)
     if(nextProps.errors) {
