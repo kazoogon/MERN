@@ -1,11 +1,31 @@
 import axios from 'axios';
 import {
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_LOADING,
   GET_ERRORS,
   CLEAR_CURRENT_PROFILE,
   SET_CURRENT_USER
 } from './types';
+
+//Get all Profiles
+export const getProfiles = () => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .delete('/api/profile/education/')
+    .then(res =>
+      dispatch({
+        type:GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: null
+      })
+    );
+}
 
 //get current profiles
 export const getCurrentProfile = () => dispatch => {
