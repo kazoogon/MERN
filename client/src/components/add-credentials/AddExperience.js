@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import TextAreaGroup from '../common/TextAreaGroup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { addExperience } from '../../actions/profileActions';
 
 class AddExperience extends Component {
   constructor(props) {
@@ -25,6 +26,12 @@ class AddExperience extends Component {
     this.onCheck = this.onCheck.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -38,7 +45,10 @@ class AddExperience extends Component {
       description: this.state.description
     };
 
-    nChange(e) {
+    this.props.addExperience(expData, this.props.history);
+  }
+
+  onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
@@ -47,9 +57,6 @@ class AddExperience extends Component {
       disabled: !this.state.disabled,
       current: !this.state.current
     });
-  }
-
-    this.props.addExperience(expData, this.props.history);
   }
 
   render() {
@@ -121,7 +128,7 @@ class AddExperience extends Component {
                     Current Job
                   </label>
                 </div>
-                <TextAreaFieldGroup
+                <TextAreaGroup
                   placeholder="Job Description"
                   name="description"
                   value={this.state.description}
@@ -139,7 +146,7 @@ class AddExperience extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
