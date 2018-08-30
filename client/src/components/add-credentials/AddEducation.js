@@ -162,5 +162,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { addEducation })(
-  withRouter(addEducation)
+  withRouter(AddEducation)
 );
