@@ -24,6 +24,7 @@ import AddEducation from './components/add-credentials/AddEducation';
 import Profiles from './components/profiles/Profiles.js';
 import Profile from './components/profile/Profile.js';
 import './App.css';
+import NotFound from './components/not.found/NotFound';
 
 //画面遷移してもUser loginしているかどうか毎回調べる
 if(localStorage.jwtToken) {
@@ -71,6 +72,7 @@ class App extends Component {
               <Switch>
                 <PrivateRoute exact path="/add-education" component={ AddEducation } />
               </Switch>
+              <Route exact path="/not-found" component={ NotFound } />
             </div>
             <Footer />
           </div>
