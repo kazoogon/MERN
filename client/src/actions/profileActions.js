@@ -12,10 +12,10 @@ import {
 export const getProfiles = () => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .delete('/api/profile/education/')
+    .get('/api/profile/all')
     .then(res =>
       dispatch({
-        type:GET_PROFILE,
+        type:GET_PROFILES,
         payload: res.data
       })
     )
@@ -41,6 +41,24 @@ export const getCurrentProfile = () => dispatch => {
       dispatch({
         type: GET_PROFILE, //profileないですよーっていうdataを送る。エラーGET_ERRORを実行ではない
         payload: {}
+      })
+    );
+}
+
+//get profile by handle
+export const getProfileByHandle = (handle) => dispatch => {
+  dispatch(setProfileLoading());
+  axios.get(`/api/profile${handle}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILE, //profileないですよーっていうdataを送る。エラーGET_ERRORを実行ではない
+        payload: null
       })
     );
 }
