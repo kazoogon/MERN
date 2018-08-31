@@ -61,7 +61,7 @@ router.delete(
 router.post(
   '/like/:id',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {console.log(Profile.findOne({ user: req.user.id }));
+  (req, res) => {
     Profile.findOne({ user: req.user.id })
       .then(profile => {
         Post.findById(req.params.id)
@@ -87,7 +87,7 @@ router.post(
     Profile.findOne({ user: req.user.id })
       .then(profile => {
         Post.findById(req.params.id)
-          .then(post => {console.log(post);
+          .then(post => {
             if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0){
               return res.status(400).json({ notliked: 'You have not yet liked post' });
             }
