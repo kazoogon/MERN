@@ -80,12 +80,16 @@ class PostItem extends Component {
                   </button>
                 ) : null}
               </span>
-            ) : null}
+             ) : null} 
           </div>
         </div>
       </div>
     )
   }
+}
+
+PostItem.defaultProps = {
+	showActions: true
 }
 
 PostItem.propTypes = {
