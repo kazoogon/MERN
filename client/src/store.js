@@ -11,7 +11,10 @@ const store = createStore(
   initialState,
   compose(
     applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    //(default)window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    //to fix error "Cannot read property 'apply' of undefined"
+    //https://kdcinfo.blogspot.com/2018/04/typeerror-undefined-redux-4.html
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   )
 );
 
