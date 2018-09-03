@@ -31,7 +31,7 @@ class Dashboard extends Component {
         dashboardContent = (
           <div>
             <p className="load text-muted">
-            Welcome
+            Welcome &nbsp;
               <Link to="{`/profile/${profile.handle}`}">
               { user.name }
               </Link>
